@@ -1,8 +1,6 @@
 echo "
 [app]
 address = \"0.0.0.0:${PORT}\"
-admin_username = \"${ADMIN_USERNAME}\"
-admin_password = \"${ADMIN_PASSWORD}\"
 # Database.
 [db]
 host = \"${PGHOST}\"
