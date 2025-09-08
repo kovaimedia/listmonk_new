@@ -1,4 +1,4 @@
-FROM listmonk/listmonk:v4.1.0
+FROM listmonk/listmonk:v5.0.3
 
 ENV PORT=9000 \
     PGHOST=postgres \
