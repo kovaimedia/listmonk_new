@@ -31,5 +31,5 @@ max_idle = ${DB_MAX_IDLE}
 max_lifetime = "${DB_MAX_LIFETIME}"
 EOF
 
-/listmonk --config "${CONFIG_PATH}/config.toml" --idempotent --upgrade --yes
-exec /listmonk --config "${CONFIG_PATH}/config.toml"
+./listmonk --config "${CONFIG_PATH}/config.toml" --idempotent --upgrade --yes
+exec ./listmonk --config "${CONFIG_PATH}/config.toml"
