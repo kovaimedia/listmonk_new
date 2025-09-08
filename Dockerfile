@@ -1,5 +1,20 @@
-FROM listmonk/listmonk:latest
-ARG PORT PGDATABASE PGHOST PGPASSWORD PGPORT PGUSER
-COPY config.sh ./config.sh
-RUN chmod +x ./config.sh && ./config.sh
-RUN ./listmonk --idempotent --upgrade --yes
+FROM listmonk/listmonk:v5.0.1
+
+ENV PORT=9000 \
+    PGHOST=postgres \
+    PGPORT=5432 \
+    PGUSER=listmonk \
+    PGPASSWORD=changeme \
+    PGDATABASE=listmonk \
+    DB_SSL_MODE=require \
+    DB_MAX_OPEN=25 \
+    DB_MAX_IDLE=25 \
+    DB_MAX_LIFETIME=300s
+
+COPY entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+EXPOSE ${PORT}
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD wget -qO- "http://127.0.0.1:${PORT}/" >/dev/null 2>&1 || exit 1
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
